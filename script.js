@@ -100,26 +100,28 @@ function toggleBtn(id) {
   });
 }
 
-function classRemove(index, number, classCss) {
-  return cardContainer[index].children[number].classList.remove(classCss);
+// Helper functions
+
+function classRemove(...args) {
+  return cardContainer[args[0]].children[args[1]].classList.remove(args[2]);
 }
 
-function classAdd(index, number, classCss) {
-  if (number === '') {
-    return cardContainer[index].classList.add(classCss);
+function classAdd(...args) {
+  if (args[1] === '') {
+    return cardContainer[args[0]].classList.add(args[2]);
   } else {
-    return cardContainer[index].children[number].classList.add(classCss);
+    return cardContainer[args[0]].children[args[1]].classList.add(args[2]);
   }
 }
 
-function replaceClass(index, number, classCss, withClass) {
-  return cardContainer[index].children[number].children[
-    number
-  ].classList.replace(classCss, withClass);
+function replaceClass(...args) {
+  return cardContainer[args[0]].children[args[1]].children[
+    args[1]
+  ].classList.replace(args[2], args[3]);
 }
 
-function containClass(index, number, classCss) {
-  return cardContainer[index].children[number].classList.contains(classCss);
+function containClass(...args) {
+  return cardContainer[args[0]].children[args[1]].classList.contains(args[2]);
 }
 
 // On Load
