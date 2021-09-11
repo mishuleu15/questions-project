@@ -5,18 +5,34 @@ let cardContainer;
 const questions = [
   {
     id: 0,
-    question: 'Do You Accept All Major Credit Cards?',
-    para: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem a nulla iusto vel eaque laudantium quia magni praesentium 1.',
+    question: "What's the biggest animal in the world?",
+    para: 'The blue whale',
   },
   {
     id: 1,
-    question: 'Do You Suport Local Farmers?',
-    para: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem a nulla iusto vel eaque laudantium quia magni praesentium 2.',
+    question: 'What is the largest country in the world?',
+    para: 'Russia',
   },
   {
     id: 2,
-    question: 'Do You Use Organic Ingredients?',
-    para: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem a nulla iusto vel eaque laudantium quia magni praesentium 3.',
+    question: 'Who is the highest spiritual leader of Tibet?',
+    para: 'The Dalai Lama',
+  },
+  {
+    id: 3,
+    question: 'How many elements are there in the periodic table?',
+    para: '118 elements',
+  },
+  {
+    id: 4,
+    question: 'How many bones does a shark have?',
+    para: 'None (a shark’s skeleton is made entirely of cartilage)',
+  },
+  {
+    id: 5,
+    question:
+      'What year was Google images invented, and for a bonus point, what prompted its creation?',
+    para: 'July 2001, as a result of mass Google searches in February 2000 when Jennifer Lopez wore a jungle print dress, designed by Donatella Versace, to the Grammy Awards.',
   },
 ];
 
