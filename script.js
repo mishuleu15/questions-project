@@ -1,99 +1,110 @@
 const container = document.querySelector('.container');
 
-let open = false;
+let cardContainer;
 
-let div;
-let cardContainer1;
-let hrLine;
-let paraEle;
-let iEle;
-
-let questions = [
+const questions = [
+  {
+    id: 0,
+    question: 'Do You Accept All Major Credit Cards?',
+    para: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem a nulla iusto vel eaque laudantium quia magni praesentium 1.',
+  },
   {
     id: 1,
-    question: 'Do You Accept All Major Credit Cards?',
-    para: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem a nulla iusto vel eaque laudantium quia magni praesentium.',
+    question: 'Do You Suport Local Farmers?',
+    para: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem a nulla iusto vel eaque laudantium quia magni praesentium 2.',
   },
   {
     id: 2,
-    question: 'Do You Suport Local Farmers?',
-    para: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem a nulla iusto vel eaque laudantium quia magni praesentium.',
-  },
-  {
-    id: 3,
     question: 'Do You Use Organic Ingredients?',
-    para: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem a nulla iusto vel eaque laudantium quia magni praesentium.',
+    para: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem a nulla iusto vel eaque laudantium quia magni praesentium 3.',
   },
 ];
 
-questions.forEach((ele) => {
-  const { id, para, question } = ele;
-  createQuestion(id, para, question);
-});
+function updateDOM() {
+  questions.forEach((ele) => {
+    const { id, para, question } = ele;
+    // Card container
+    const card = document.createElement('div');
+    card.classList.add('card-container', 'closed');
 
-function createQuestion(id, para, question) {
-  console.log(question);
-  div = document.createElement('div');
-  div.classList.add('card-container');
-  div.classList.add('closed');
-  const button = document.createElement('button');
-  button.classList.add('btn');
+    // Button
+    const button = document.createElement('button');
+    button.classList.add('btn');
+    button.setAttribute('onclick', `toggleBtn(${id})`);
 
-  button.addEventListener('click', toggleBtn);
-  // button.setAttribute('onclick', 'toggleBtn()');
-  const i = document.createElement('i');
-  i.classList.add('far');
-  i.classList.add('fa-times-square');
-  i.setAttribute('id', id);
-  button.appendChild(i);
-  const h3 = document.createElement('h3');
-  h3.textContent = question;
-  const hr = document.createElement('hr');
-  const p = document.createElement('p');
-  p.textContent = para;
-  div.append(button, h3, hr, p);
-  container.appendChild(div);
-  console.log(div);
-  cardContainer1 = document.querySelector('.card-container');
-  hrLine = document.querySelector('hr');
-  paraEle = document.querySelector('p');
-  iEle = document.querySelector('.far');
+    // Font Awesome Icon
+    const i = document.createElement('i');
+    i.classList.add('far', 'fa-times-square');
+
+    // Title
+    const h3 = document.createElement('h3');
+    h3.textContent = question;
+
+    // Horiz line
+    const hr = document.createElement('hr');
+    hr.classList.add('hrHide');
+
+    // Paragraph
+    const p = document.createElement('p');
+    p.classList.add('pHide');
+    p.textContent = para;
+
+    // Append
+    button.appendChild(i);
+    card.append(button, h3, hr, p);
+    container.appendChild(card);
+
+    // Select elements
+    cardContainer = document.querySelectorAll('.card-container');
+  });
 }
 
-function closeWindow() {
-  div.classList.add('closed');
-  // cardContainer1.style.height = '50px';
-  hrLine.style.display = 'none';
-  paraEle.style.display = 'none';
-  iEle.classList.remove('fa-minus-square');
-  iEle.classList.add('fa-plus-square');
-  cardContainer1.classList.remove('close');
-
-  open = false;
+function toggleBtn(id) {
+  cardContainer.forEach((el, index) => {
+    if (index === id) {
+      cardContainer[index].classList.toggle('closed');
+      replaceClass(index, 0, 'fa-times-square', 'fa-minus-square');
+      if (containClass(index, 2, 'hrHide') && containClass(index, 3, 'pHide')) {
+        replaceClass(index, 0, 'fa-times-square', 'fa-minus-square');
+        setTimeout(() => {
+          classRemove(index, 2, 'hrHide');
+          classRemove(index, 3, 'pHide');
+        }, 1000);
+      } else {
+        classAdd(index, 2, 'hrHide');
+        classAdd(index, 3, 'pHide');
+        replaceClass(index, 0, 'fa-minus-square', 'fa-times-square');
+      }
+    } else {
+      classAdd(index, '', 'closed');
+      replaceClass(index, 0, 'fa-minus-square', 'fa-times-square');
+      classAdd(index, 2, 'hrHide');
+      classAdd(index, 3, 'pHide');
+    }
+  });
 }
 
-function openWindow() {
-  div.classList.remove('closed');
-  iEle.classList.add('fa-minus-square');
-  iEle.classList.remove('fa-plus-square');
-  cardContainer1.style.height = '';
-  setTimeout(() => {
-    hrLine.style.display = '';
-    paraEle.style.display = '';
-  }, 1000);
-
-  open = true;
+function classRemove(index, number, classCss) {
+  return cardContainer[index].children[number].classList.remove(classCss);
 }
 
-function toggleBtn(e) {
-  console.log(e.target.getAttribute('id'));
-  // open ? closeWindow() : openWindow();
-
-  if (open) {
-    closeWindow();
+function classAdd(index, number, classCss) {
+  if (number === '') {
+    return cardContainer[index].classList.add(classCss);
   } else {
-    openWindow();
+    return cardContainer[index].children[number].classList.add(classCss);
   }
 }
 
-closeWindow();
+function replaceClass(index, number, classCss, withClass) {
+  return cardContainer[index].children[number].children[
+    number
+  ].classList.replace(classCss, withClass);
+}
+
+function containClass(index, number, classCss) {
+  return cardContainer[index].children[number].classList.contains(classCss);
+}
+
+// On Load
+updateDOM();
